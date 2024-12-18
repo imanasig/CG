@@ -36,6 +36,22 @@ void display() {
     glVertex2f(-1.0, -0.5);
     glEnd();
 
+    // Draw mountains
+    glColor3f(0.5, 0.35, 0.05);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(-0.8, -0.5);
+    glVertex2f(-0.4, 0.2);
+    glVertex2f(0.0, -0.5);
+
+    glVertex2f(-0.2, -0.5);
+    glVertex2f(0.2, 0.1);
+    glVertex2f(0.6, -0.5);
+
+    glVertex2f(0.4, -0.5);
+    glVertex2f(0.8, 0.3);
+    glVertex2f(1.2, -0.5);
+    glEnd();
+
     glFlush();
 }
 
