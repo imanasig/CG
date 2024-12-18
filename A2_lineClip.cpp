@@ -1,3 +1,10 @@
+// Sample Points:
+// Entirely visible within the clipping rectangle: Point 1: (50, 50) Point 2: (80, 80)
+
+// Partially visible (crosses boundary): Point 1: (-150, 50) Point 2: (50, 150)
+
+// Completely outside the clipping rectangle: Point 1: (-150, -150) Point 2: (-200, -200)
+
 #include <GL/glut.h>
 #include <iostream>
 
@@ -12,7 +19,7 @@ const int TOP = 8;    // 1000
 // Define the clipping region
 float xmin = -100, ymin = -100, xmax = 100, ymax = 100;
 
-float x1, y1, x2, y2; // Line endpoints provided by the user
+float x_start, y_start, x_end, y_end; // Line endpoints provided by the user
 
 int computeCode(float x, float y) {
     int code = INSIDE;
@@ -99,12 +106,12 @@ void display() {
     // Original line in blue
     glColor3f(0.0, 0.0, 1.0); // Blue color
     glBegin(GL_LINES);
-    glVertex2f(x1, y1);
-    glVertex2f(x2, y2);
+    glVertex2f(x_start, y_start);
+    glVertex2f(x_end, y_end);
     glEnd();
 
     // Perform line clipping
-    cohenSutherlandClip(x1, y1, x2, y2);
+    cohenSutherlandClip(x_start, y_start, x_end, y_end);
 
     glFlush();
 }
@@ -117,9 +124,9 @@ void init() {
 
 int main(int argc, char** argv) {
     cout << "Enter the coordinates of the first point (x1, y1): ";
-    cin >> x1 >> y1;
+    cin >> x_start >> y_start;
     cout << "Enter the coordinates of the second point (x2, y2): ";
-    cin >> x2 >> y2;
+    cin >> x_end >> y_end;
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
