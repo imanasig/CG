@@ -19,17 +19,18 @@ private:
 public:
     Ball(float x = 0.0, float y = 0.0, float radius = 0.1) : x(x), y(y), radius(radius) {}
 
-    // Override draw function to draw a ball
-    void draw() override {
-        glColor3f(0.2, 0.6, 0.8); // Set color for the ball
-        glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(x, y); // Center of the ball
-        for (int i = 0; i <= 50; i++) {
-            float angle = 2.0 * 3.14159 * i / 50;
-            glVertex2f(x + cos(angle) * radius, y + sin(angle) * radius);
-        }
-        glEnd();
+// Override draw function to draw a ball
+void draw() override {
+    glColor3f(0.2, 0.6, 0.8); // Set color for the ball
+    glBegin(GL_POLYGON);      // Use a polygon to approximate the circle
+    for (int i = 0; i < 100; i++) { 
+        float angle = 2.0f * 3.14159f * i / 20; // Divide the circle into 100 parts
+        float dx = cos(angle) * radius;        // Calculate x offset
+        float dy = sin(angle) * radius;        // Calculate y offset
+        glVertex2f(x + dx, y + dy);            // Add each vertex to the polygon
     }
+    glEnd();
+}
 
     // Override move function to move the ball by dx and dy
     void move(float dx, float dy) override {
